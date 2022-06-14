@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byLinkText;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 public class SelenideGithub {
     @BeforeAll
@@ -25,8 +26,9 @@ public class SelenideGithub {
         // - Перейдите в раздел Wiki проекта
         $("[id=wiki-tab]").click();
         // - Убедитесь, что в списке страниц (Pages) есть страница SoftAssertions
-        $(".markdown-body").shouldHave(text("Soft assertions"));
-        $(byLinkText("Soft assertions")).click();
+        $(".js-wiki-more-pages-link").click();
+        $("#wiki-pages-box").$(byText("SoftAssertions")).shouldHave(
+                Condition.href("https://github.com/selenide/selenide/wiki/SoftAssertions")).click();;
         // - Откройте страницу SoftAssertions, проверьте что внутри есть пример кода для JUnit5
         $(".markdown-body").shouldHave(text("Using JUnit5 extend test class"));
     }
